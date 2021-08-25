@@ -20,5 +20,16 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
-    projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --self-contained="true"'
+    command: build
+    projects: $(fastSolution)
+    publishWebProjects: false
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    projects: $(fastSolution)
+    arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory) --self-contained true --runtime win-x64'
+    zipAfterPublish: True
+
