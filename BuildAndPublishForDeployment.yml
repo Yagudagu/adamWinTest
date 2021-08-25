@@ -36,7 +36,7 @@ steps:
   inputs:
     command: publish
     projects: $(publishProjects)
-    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --framework net5.0 --no-build'
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --framework "net5.0-windows" --no-build'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
