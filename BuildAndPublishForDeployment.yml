@@ -7,7 +7,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  fastSolution: '**/Fast.sln'
+  fastSolution: '**/Net50WindowsDeploymentTest.sln'
+  publishProjects: '**/Net50WindowsDeploymentTest.csproj'
   buildConfiguration: 'Release'
 
 steps:
@@ -20,5 +21,21 @@ steps:
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
-    projects: '**/*.csproj'
+    command: build
+    projects: $(fastSolution)
+    publishWebProjects: false
     arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    projects: $(publishProjects)
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x86'
+    zipAfterPublish: True
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
