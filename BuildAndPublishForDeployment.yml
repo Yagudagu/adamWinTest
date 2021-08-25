@@ -27,7 +27,8 @@ steps:
   inputs:
     command: build
     projects: $(fastSolution)
-    arguments: '--configuration $(buildConfiguration) --framework net5.0-windows --no-restore'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
+    # arguments: '--configuration $(buildConfiguration) --framework net5.0-windows --no-restore'
     publishWebProjects: false
 
 - task: DotNetCoreCLI@2
@@ -35,7 +36,7 @@ steps:
   inputs:
     command: publish
     projects: $(publishProjects)
-    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime $(buildPlatform) --no-build'
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --framework net5.0 --no-build'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
