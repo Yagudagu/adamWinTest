@@ -21,4 +21,4 @@ steps:
   displayName: Build
   inputs:
     projects: '**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --self-contained true'
