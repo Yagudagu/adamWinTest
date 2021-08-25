@@ -7,8 +7,8 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  fastSolution: '**/Fast.sln'
-  fastProjects: '**/Fast.csproj'
+  fastSolution: '**/Net50WindowsDeploymentTest.sln'
+  publishProjects: '**/Net50WindowsDeploymentTest.csproj'
   buildConfiguration: 'Release'
 
 steps:
@@ -30,7 +30,7 @@ steps:
   displayName: Publish
   inputs:
     command: publish
-    projects: $(fastProjects)
+    projects: $(publishProjects)
     arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory) --self-contained true --runtime win-x64'
     zipAfterPublish: True
 
