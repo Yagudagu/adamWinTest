@@ -34,7 +34,7 @@ steps:
   inputs:
     command: publish
     projects: $(publishProjects)
-    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x86 --no-build'
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x64 --no-build'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
