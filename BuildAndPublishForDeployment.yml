@@ -24,14 +24,14 @@ steps:
     command: build
     projects: $(fastSolution)
     publishWebProjects: false
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
     command: publish
     projects: $(publishProjects)
-    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x86'
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x86 --no-build'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
