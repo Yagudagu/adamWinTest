@@ -9,7 +9,8 @@ pool:
 variables:
   fastSolution: '**/Net50WindowsDeploymentTest.sln'
   publishProjects: '**/Net50WindowsDeploymentTest.csproj'
-  buildConfiguration: 'Release'
+  buildConfiguration: 'DEBUG'
+  buildPlatform: 'win-x64'
 
 steps:
 
@@ -26,15 +27,15 @@ steps:
   inputs:
     command: build
     projects: $(fastSolution)
+    arguments: '--configuration $(buildConfiguration) --framework net5.0-windows --no-restore'
     publishWebProjects: false
-    arguments: '--configuration $(buildConfiguration) --runtime win-x64 --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
     command: publish
     projects: $(publishProjects)
-    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x64 --no-build'
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime $(buildPlatform) --no-build'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
