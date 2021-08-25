@@ -4,7 +4,7 @@ trigger:
 - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
   fastSolution: '**/Net50WindowsDeploymentTest.sln'
@@ -27,7 +27,7 @@ steps:
     command: build
     projects: $(fastSolution)
     publishWebProjects: false
-    arguments: '--configuration $(buildConfiguration) --no-restore'
+    arguments: '--configuration $(buildConfiguration) --runtime win-x64 --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: Publish
