@@ -13,10 +13,13 @@ variables:
 
 steps:
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
+  displayName: Restore
   inputs:
-    command: 'restore'
-    restoreSolution: $(fastSolution)
+    command: restore
+    projects: $(fastSolution)
+    feedsToUse: 'select'
+    vstsFeed: 'd589caf8-6e77-4aa6-9ffd-e644da7de4b1/f566eb63-1603-4f24-bf96-70495e7e38e7'
 
 - task: DotNetCoreCLI@2
   displayName: Build
@@ -24,14 +27,14 @@ steps:
     command: build
     projects: $(fastSolution)
     publishWebProjects: false
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 
 - task: DotNetCoreCLI@2
   displayName: Publish
   inputs:
     command: publish
     projects: $(publishProjects)
-    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x86'
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x64 --no-build'
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
