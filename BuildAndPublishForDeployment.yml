@@ -31,6 +31,11 @@ steps:
   inputs:
     command: publish
     projects: $(publishProjects)
-    arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory) --self-contained true --runtime win-x64'
+    arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --runtime win-x64'
     zipAfterPublish: True
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
