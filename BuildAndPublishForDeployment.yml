@@ -7,8 +7,7 @@ pool:
   vmImage: windows-latest
 
 variables:
-  fastSolution: '**/Net50WindowsDeploymentTest.sln'
-  publishProjects: '**/Net50WindowsDeploymentTest.csproj'
+  solution: '**/Net50WindowsDeploymentTest.sln'
   buildConfiguration: 'DEBUG'
   targetFramework: 'net5.0-windows'
 
@@ -18,7 +17,7 @@ steps:
   displayName: Restore
   inputs:
     command: restore
-    projects: $(fastSolution)
+    projects: $(solution)
     feedsToUse: 'select'
     vstsFeed: 'd589caf8-6e77-4aa6-9ffd-e644da7de4b1/f566eb63-1603-4f24-bf96-70495e7e38e7'
 
@@ -26,7 +25,7 @@ steps:
   displayName: Build
   inputs:
     command: build
-    projects: $(fastSolution)
+    projects: $(solution)
     arguments: '--configuration $(buildConfiguration) --no-restore'
     publishWebProjects: false
 
@@ -34,7 +33,7 @@ steps:
   displayName: Publish
   inputs:
     command: publish
-    projects: $(publishProjects)
+    projects: $(solution)
     arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --framework "$(targetFramework)" --no-build'
     zipAfterPublish: True
 
