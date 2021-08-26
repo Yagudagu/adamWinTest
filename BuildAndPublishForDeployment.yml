@@ -14,7 +14,7 @@ variables:
 steps:
 
 - task: DotNetCoreCLI@2
-  displayName: Restore
+  displayName: DotNet Restore
   inputs:
     command: restore
     projects: $(solution)
@@ -22,7 +22,7 @@ steps:
     vstsFeed: 'd589caf8-6e77-4aa6-9ffd-e644da7de4b1/f566eb63-1603-4f24-bf96-70495e7e38e7'
 
 - task: DotNetCoreCLI@2
-  displayName: Build
+  displayName: DotNet Build
   inputs:
     command: build
     projects: $(solution)
@@ -30,7 +30,7 @@ steps:
     publishWebProjects: false
 
 - task: DotNetCoreCLI@2
-  displayName: Publish
+  displayName: DotNet Publish
   inputs:
     command: publish
     projects: $(solution)
@@ -38,6 +38,7 @@ steps:
     zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
+  displayName: Publish Build Artifact
   inputs:
     PathtoPublish: '$(build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
