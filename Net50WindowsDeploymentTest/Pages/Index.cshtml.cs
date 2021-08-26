@@ -41,5 +41,11 @@ namespace Net50WindowsDeploymentTest.Pages
             var folder = Path.GetDirectoryName(exePath);
             return Path.Combine(folder, "Logging");
         }
+
+        public string SomethingWithFastReport()
+        {
+            FastReport.Code.CSharp.CSharpCodeProvider cSharpCodeProvider = new();
+            return cSharpCodeProvider.ToString();
+        }
     }
 }
