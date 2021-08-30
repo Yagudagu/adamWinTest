@@ -35,7 +35,7 @@ steps:
     command: publish
     projects: $(solution)
     arguments: '--configuration $(buildConfiguration) --output $(build.ArtifactStagingDirectory) --self-contained true --framework "$(targetFramework)" --no-build'
-    zipAfterPublish: True
+    #zipAfterPublish: True
 
 - task: PublishBuildArtifacts@1
   displayName: Publish Build Artifact
